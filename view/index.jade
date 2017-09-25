@@ -1,0 +1,47 @@
+doctype html
+html(lang=en)
+	head
+		meta(charset=utf-8)
+		link(href='./main.css', rel='stylesheet')
+		title Title
+	body
+		h1 Repo Finder
+		
+		br
+			
+		p Enter github username and reponame in the input fields or
+		p 
+			b check out some of these repos:
+		
+		br
+		
+		table
+			thead
+				tr
+					td 
+						b Username
+					td 
+					  b Repository name
+					td 
+						b Link
+			tbody
+				tr
+					td git
+					td git
+					td 
+						a(href="/projectinfo/v1/github.com/git/git") git/git
+				tr
+					td npm
+					td npm
+					td
+						a(href="/projectinfo/v1/github.com/npm/npm") npm/npm
+				tr
+					td atom
+					td atom
+					td
+						a(href="/projectinfo/v1/github.com/atom/atom") atom/atom
+						
+		form(method="get", class="form", style="display: flex; flex-direction: column;")
+			input(class="input", name="userName", type="text", placeholder="username", style="border: 1px solid grey; background: #fff; border-radius: 4px; color: #333; box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(000,000,000,0.7) 0 0px 0px; padding: 8px; margin-bottom: 10px;")
+			input(class="input", name="repoName", type="text", placeholder="repository name", style="border: 1px solid grey; background: #fff; border-radius: 4px; color: #333; box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(000,000,000,0.7) 0 0px 0px; padding: 8px; margin-bottom: 10px;")
+			button(class="button", type="submit", style="background: #3498db; background-image: linear-gradient(to bottom, #3498db, #3498db); border-radius: 6px; color: #ffffff; font-size: 20px; padding: 10px 20px 10px 20px; border:none") Submit
