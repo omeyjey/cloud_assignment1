@@ -7,6 +7,7 @@ import (
 	"testing"
 
 	"github.com/GoogleCloudPlatform/appengine-guestbook-go/testdata"
+	"github.com/jarcoal/httpmock"
 	"google.golang.org/appengine/aetest"
 	// "gopkg.in/jarcoal/httpmock.v1"
 )
@@ -175,36 +176,36 @@ func TestParseData(t *testing.T) {
 // 	}
 // }
 
-// func TestHandlerRepo(t *testing.T) {
-// 	httpmock.Activate()
-// 	defer httpmock.DeactivateAndReset()
-//
-// 	httpmock.RegisterResponder("GET", "https://api.github.com/repos/omeyjey/database_assigment1",
-// 		httpmock.NewStringResponder(200, testdata.INITIALDATA))
-//
-// 	httpmock.RegisterResponder("GET", "https://api.github.com/repos/omeyjey/database_assigment1/contributors",
-// 		httpmock.NewStringResponder(200, testdata.CONTRIBUTORS))
-//
-// 	httpmock.RegisterResponder("GET", "https://api.github.com/repos/omeyjey/database_assigment1/languages",
-// 		httpmock.NewStringResponder(200, testdata.LANGUAGES))
-//
-//
-// 	req, err := inst.NewRequest("GET", "/projectinfo/v1/github.com/omeyjey/database_assigment1", nil)
-// 	if err != nil {
-// 		t.Fatal("Cant create request")
-// 	}
-//
-// 	recorder := httptest.NewRecorder()
-//
-// 	handler := http.HandlerFunc(handlerRepo)
-// 	handler.ServeHTTP(recorder, req)
-//
-// 	expected := testdata.REPODATA
-//
-// 	if strings.TrimSpace(recorder.Body.String()) != expected {
-// 		t.Errorf("Handler returned a different frontend than expected. Expected: %v, got %v", recorder.Body.String(), expected)
-// 	}
-// }
+func TestHandlerRepo(t *testing.T) {
+	httpmock.Activate()
+	defer httpmock.DeactivateAndReset()
+
+	httpmock.RegisterResponder("GET", "https://api.github.com/repos/omeyjey/database_assigment1",
+		httpmock.NewStringResponder(200, testdata.INITIALDATA))
+
+	httpmock.RegisterResponder("GET", "https://api.github.com/repos/omeyjey/database_assigment1/contributors",
+		httpmock.NewStringResponder(200, testdata.CONTRIBUTORS))
+
+	httpmock.RegisterResponder("GET", "https://api.github.com/repos/omeyjey/database_assigment1/languages",
+		httpmock.NewStringResponder(200, testdata.LANGUAGES))
+
+	req, err := inst.NewRequest("GET", "/projectinfo/v1/github.com/omeyjey/database_assigment1", nil)
+	if err != nil {
+		t.Fatal("Cant create request")
+	}
+
+	recorder := httptest.NewRecorder()
+
+	handler := http.HandlerFunc(handlerRepo)
+	handler.ServeHTTP(recorder, req)
+
+	expected := testdata.REPODATA
+
+	if strings.TrimSpace(recorder.Body.String()) != expected {
+		t.Errorf("Handler returned a different frontend than expected. Expected: %v, got %v", recorder.Body.String(), expected)
+	}
+}
+
 //
 func tearDown() {
 	if inst != nil {
